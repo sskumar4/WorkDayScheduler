@@ -30,15 +30,51 @@ const saveIcon = "./images/save-regular.svg";
     if (savedSchedules !== null) {
         schedules = savedSchedules;
     } else {
-       // else path is taken when app is launched first time 
-       planTextArr = new Array(9);
-     
+       // else path is taken when app is launched the first time 
+       schedules = new Array(9);     
     }
 
     // jQuery variables referencing DOM
-    let $schedulesDiv = $('#schedulesContainer');
+    let schedulesDiv = $('#schedulesContainer');
 
     // emptyout all schedules
-    $schedulesDiv.empty();
+    schedulesDiv.empty();
 
+    // create calendar for the whole work day by each row
+    let hr = 9;
+    do {
     
+      // index for array use offset from hour
+      let i = hr - 9;
+
+      // create and construct row 
+      let hrDiv = $('<div>');
+      hrDiv.addClass('row');
+      hrDiv.addClass('scheduleHr');
+      hrDiv.attr('hr-index', hr);
+
+      // create and construct Time column portion of row
+      let timeDiv = $('<div>');
+      timeDiv.addClass('col-md-2');
+
+      // create timeBox element (contains time)
+      const timeSpn = $('<span>');
+
+      // to extract value
+      timeSpn.attr('class', 'timeSpan');
+
+      // format hours for display
+      let outputHr = 0;
+      let ampm = "";
+      if (hour > 12) {
+
+          outputHr = hour - 12;
+          ampm = "pm";
+
+      } else {
+          outputHr = hour;
+          ampm = "am";
+      }
+
+      hr++;
+    } while (hr < 17);
