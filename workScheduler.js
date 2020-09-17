@@ -24,12 +24,12 @@ const saveIcon = "./images/save-regular.svg";
     // Fetch saved items from localStorage 
     let schedules = JSON.parse(localStorage.getItem("schedules"));
 
-    // If saved items are not null , update the plan array to it
+    // If saved items are not null, update the plan array to it
     if (schedules !== null) {
         schedules = schedules;
     } else {
-       // else path is taken when app is launched the first time 
-       schedules = new Array(9);     
+       // else path is taken when app is launched the first time
+       schedules = new Array(9);
     }
 
     // jQuery variables referencing DOM
@@ -63,19 +63,19 @@ const saveIcon = "./images/save-regular.svg";
 
       // format hrs for display
       let outputHr = 0;
-      let ampm = "";
+      let HramPm = "";
       if (hr > 12) {
 
           outputHr = hr - 12;
-          ampm = "pm";
+          HramPm = "pm";
 
       } else {
           outputHr = hr;
-          ampm = "am";
+          HramPm = "am";
       }
 
       // Fill timeSpn with time
-      timeSpn.text(`${outputHr} ${ampm}`);
+      timeSpn.text(`${outputHr} ${HramPm}`);
 
       hrDiv.append(timeDiv);
       timeDiv.append(timeSpn);
@@ -115,12 +115,11 @@ const saveIcon = "./images/save-regular.svg";
         //add hrDiv to schedulesDiv
         schedulesDiv.append(hrDiv);
         hr++;
-    } while (hr < 17);
+    } while (hr <= 17);
 
     //  row color update
     function applyColorToHrDiv(thisHr, hr) {
         if (hr < time24) {
-            // thisHr.css('')
             thisHr.css("background-color", "lightgrey");
         } else if (hr > time24) {
             thisHr.css("background-color", "lightgreen");
