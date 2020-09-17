@@ -1,13 +1,11 @@
 /*Work day scheduler code*/
-
 $(document).ready(function() {
-
   //setting today's date
 let date = moment().format('MMMM Do YYYY');  
 
 //setting day of week
 let day = moment().format('dddd');
-});
+
 
 //Display  date
 function outputTheDay() {
@@ -24,11 +22,11 @@ let time24 = moment().format('H');
 const saveIcon = "./images/save-regular.svg";
 
     // Fetch saved items from localStorage 
-    let savedSchedules = JSON.parse(localStorage.getItem("savedSchedules"));
+    let schedules = JSON.parse(localStorage.getItem("schedules"));
 
     // If saved items are not null , update the plan array to it
-    if (savedSchedules !== null) {
-        schedules = savedSchedules;
+    if (schedules !== null) {
+        schedules = schedules;
     } else {
        // else path is taken when app is launched the first time 
        schedules = new Array(9);     
@@ -41,17 +39,17 @@ const saveIcon = "./images/save-regular.svg";
     schedulesDiv.empty();
 
     // create calendar for the whole work day by each row
+
     let hr = 9;
     do {
-    
-      // index for array use offset from hour
+      // index for array use offset from hr
       let i = hr - 9;
 
       // create and construct row 
       let hrDiv = $('<div>');
       hrDiv.addClass('row');
       hrDiv.addClass('scheduleHr');
-      hrDiv.attr('hr-index', hr);
+      hrDiv.attr('hr-idx', hr);
 
       // create and construct Time column portion of row
       let timeDiv = $('<div>');
@@ -63,20 +61,21 @@ const saveIcon = "./images/save-regular.svg";
       // to extract value
       timeSpn.attr('class', 'timeSpan');
 
-      // format hours for display
+      // format hrs for display
       let outputHr = 0;
-      let ampm = "";
-      if (hour > 12) {
+      let HramPm = "";
+      if (hr > 12) {
 
-          outputHr = hour - 12;
-          ampm = "pm";
+          outputHr = hr - 12;
+          HramPm = "pm";
 
       } else {
-          outputHr = hour;
-          ampm = "am";
+          outputHr = hr;
+          HramPm = "am";
       }
+
       // Fill timeSpn with time
-      timeSpn.text(`${outputHr} ${ampm}`);
+      timeSpn.text(`${outputHr} ${HramPm}`);
 
       hrDiv.append(timeDiv);
       timeDiv.append(timeSpn);
@@ -115,5 +114,46 @@ const saveIcon = "./images/save-regular.svg";
 
         //add hrDiv to schedulesDiv
         schedulesDiv.append(hrDiv);
-      hr++;
+        hr++;
     } while (hr < 17);
+
+    //  row color update
+    function applyColorToHrDiv(thisHr, hr) {
+        if (hr < time24) {
+            // thisHr.css('')
+            thisHr.css("background-color", "lightgrey");
+        } else if (hr > time24) {
+            thisHr.css("background-color", "lightgreen");
+        } else {
+            thisHr.css("background-color", "tomato");
+        }
+    };
+
+    // save to localStorage on save
+    $(document).on('click', 'i', function(event) {
+        event.preventDefault();
+        let savId = $(this).attr('sav-id');
+        let scheduleId = '#input-' + savId;
+        let schedule = $(scheduleId).val();
+        schedules[savId] = schedule;
+
+        // remove shawdow pulse class
+        $(`#savid-${savId}`).removeClass('shadowPulse');
+        localStorage.setItem("schedules", JSON.stringify(schedules));
+
+    });
+
+    // save when the input changes
+
+    $(document).on('change', 'input', function(event) {
+        event.preventDefault();
+
+        // neeed to check for save button
+        let i = $(this).attr('hr-idx');
+
+        // add shawdow pulse class
+        $(`#savid-${i}`).addClass('shadowPulse');
+
+    });
+
+});
