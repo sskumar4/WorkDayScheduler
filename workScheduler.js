@@ -57,7 +57,7 @@ const saveIcon = "./images/save-regular.svg";
       let timeDiv = $('<div>');
       timeDiv.addClass('col-md-2');
 
-      // create timeBox element (contains time)
+      // create container element
       const timeSpn = $('<span>');
 
       // to extract value
@@ -85,7 +85,7 @@ const saveIcon = "./images/save-regular.svg";
         dailyScheduleSpn.attr('id', `input-${i}`);
         dailyScheduleSpn.attr('hr-idx', i);
         dailyScheduleSpn.attr('type', 'text');
-        dailyScheduleSpn.attr('class', 'dailyPlan');
+        dailyScheduleSpn.attr('class', 'plan');
 
         
         dailyScheduleSpn.val(schedules[i]);
