@@ -2,7 +2,7 @@
 $(document).ready(function() {
   //setting today's date
 let date = moment().format('MMMM Do YYYY');  
-
+console.log('date',date);
 //setting day of week
 let day = moment().format('dddd');
 
@@ -15,9 +15,11 @@ function outputTheDay() {
 outputTheDay();
 
 // fetch time
-const time = moment().format('MMMM Do YYYY');
-
+const time = moment();
+console.log('time',time);
+console.log('time.hour',time.hour());
 let time24 = moment().format('H');
+console.log('time24',time24);
 
 const saveIcon = "./images/save-regular.svg";
 
@@ -87,7 +89,9 @@ const saveIcon = "./images/save-regular.svg";
 
         
         dailyScheduleSpn.val(schedules[i]);
-
+        if ( hr < time24) {
+          dailyScheduleSpn.attr("disabled", "true");
+        }
         // create schedule column
         let scheduleDiv = $('<div>');
         scheduleDiv.addClass('col-md-9');
@@ -119,7 +123,7 @@ const saveIcon = "./images/save-regular.svg";
 
     //  row color update
     function applyColorToHrDiv(thisHr, hr) {
-        if (hr < time24) {
+        if (hr < time.hour()) {
             thisHr.css("background-color", "lightgrey");
         } else if (hr > time24) {
             thisHr.css("background-color", "lightgreen");
