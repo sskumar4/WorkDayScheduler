@@ -81,16 +81,16 @@ const saveIcon = "./images/save-regular.svg";
 
       hrDiv.append(timeDiv);
       timeDiv.append(timeSpn);
-      let dailyScheduleSpn = $('<input>');
-        dailyScheduleSpn.attr('id', `input-${i}`);
-        dailyScheduleSpn.attr('hr-idx', i);
-        dailyScheduleSpn.attr('type', 'text');
-        dailyScheduleSpn.attr('class', 'plan');
+      let scheduleSpn = $('<input>');
+        scheduleSpn.attr('id', `input-${i}`);
+        scheduleSpn.attr('hr-idx', i);
+        scheduleSpn.attr('type', 'text');
+        scheduleSpn.attr('class', 'plan');
 
         
-        dailyScheduleSpn.val(schedules[i]);
+        scheduleSpn.val(schedules[i]);
         if ( hr < time24) {
-          dailyScheduleSpn.attr("disabled", "true");
+          scheduleSpn.attr("disabled", "true");
         }
         // create schedule column
         let scheduleDiv = $('<div>');
@@ -98,7 +98,7 @@ const saveIcon = "./images/save-regular.svg";
         
         // append schedule div and span to hrDiv
         hrDiv.append(scheduleDiv);
-        scheduleDiv.append(dailyScheduleSpn);
+        scheduleDiv.append(scheduleSpn);
 
         // create save colum at the end of
         // hrDiv
