@@ -63,19 +63,19 @@ const saveIcon = "./images/save-regular.svg";
 
       // format hrs for display
       let outputHr = 0;
-      let HramPm = "";
+      let ampm = "";
       if (hr > 12) {
 
           outputHr = hr - 12;
-          HramPm = "pm";
+          ampm = "pm";
 
       } else {
           outputHr = hr;
-          HramPm = "am";
+          ampm = "am";
       }
 
       // Fill timeSpn with time
-      timeSpn.text(`${outputHr} ${HramPm}`);
+      timeSpn.text(`${outputHr} ${ampm}`);
 
       hrDiv.append(timeDiv);
       timeDiv.append(timeSpn);
