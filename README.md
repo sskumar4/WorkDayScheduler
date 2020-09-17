@@ -1,5 +1,5 @@
 # WorkDayScheduler
-[![picture 2](assets/images/dp.JPG)](https://sskumar4.github.io/WorkDayScheduler/)
+[![Thumbnail](assets/wdscheduler.jpg)](https://sskumar4.github.io/WorkDayScheduler/)
 
 # Links to deployed application and repository:
 * [Deployed Application](https://sskumar4.github.io/WorkDayScheduler/)
