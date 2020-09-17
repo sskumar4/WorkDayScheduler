@@ -75,6 +75,45 @@ const saveIcon = "./images/save-regular.svg";
           outputHr = hour;
           ampm = "am";
       }
+      // Fill timeSpn with time
+      timeSpn.text(`${outputHr} ${ampm}`);
 
+      hrDiv.append(timeDiv);
+      timeDiv.append(timeSpn);
+      let dailyScheduleSpn = $('<input>');
+        dailyScheduleSpn.attr('id', `input-${i}`);
+        dailyScheduleSpn.attr('hr-idx', i);
+        dailyScheduleSpn.attr('type', 'text');
+        dailyScheduleSpn.attr('class', 'dailyPlan');
+
+        
+        dailyScheduleSpn.val(schedules[i]);
+
+        // create schedule column
+        let scheduleDiv = $('<div>');
+        scheduleDiv.addClass('col-md-9');
+        
+        // append schedule div and span to hrDiv
+        hrDiv.append(scheduleDiv);
+        scheduleDiv.append(dailyScheduleSpn);
+
+        // create save colum at the end of
+        // hrDiv
+        let savIconDiv = $('<div>');
+        savIconDiv.addClass('col-md-1');
+        let savIcon = $('<i>');
+        savIcon.attr('id', `savid-${i}`);
+        savIcon.attr('sav-id', i);
+
+        savIcon.attr('class', "far fa-save saveIcon");
+
+        hrDiv.append(savIconDiv);
+        savIconDiv.append(savIcon);
+
+        //apply proper color
+        applyColorToHrDiv(hrDiv, hr);
+
+        //add hrDiv to schedulesDiv
+        schedulesDiv.append(hrDiv);
       hr++;
     } while (hr < 17);
