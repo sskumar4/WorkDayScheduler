@@ -1,9 +1,9 @@
 /*Work day scheduler code*/
 $(document).ready(function() {
-  //setting today's date
+  //set today's date
 let date = moment().format('MMMM Do YYYY');  
-console.log('date',date);
-//setting day of week
+
+//set day of week
 let day = moment().format('dddd');
 
 
@@ -20,8 +20,6 @@ console.log('time',time);
 console.log('time.hour',time.hour());
 let time24 = moment().format('H');
 console.log('time24',time24);
-
-const saveIcon = "./images/save-regular.svg";
 
     // Fetch saved items from localStorage 
     let schedules = JSON.parse(localStorage.getItem("schedules"));
@@ -44,23 +42,21 @@ const saveIcon = "./images/save-regular.svg";
 
     let hr = 9;
     do {
-      // index for array use offset from hr
-      let i = hr - 9;
-
-      // create and construct row 
+       let i = hr - 9;
+      // create row 
       let hrDiv = $('<div>');
       hrDiv.addClass('row');
       hrDiv.addClass('scheduleHr');
       hrDiv.attr('hr-idx', hr);
 
-      // create and construct Time column portion of row
+      // create Time column part of row
       let timeDiv = $('<div>');
       timeDiv.addClass('col-md-2');
 
       // create container element
       const timeSpn = $('<span>');
 
-      // to extract value
+      // extract value
       timeSpn.attr('class', 'timeSpan');
 
       // format hrs for display
@@ -76,52 +72,47 @@ const saveIcon = "./images/save-regular.svg";
           HramPm = "am";
       }
 
-      // Fill timeSpn with time
+      // Fill time column with time
       timeSpn.text(`${outputHr} ${HramPm}`);
 
       hrDiv.append(timeDiv);
       timeDiv.append(timeSpn);
       let scheduleSpn = $('<input>');
-        scheduleSpn.attr('id', `input-${i}`);
-        scheduleSpn.attr('hr-idx', i);
-        scheduleSpn.attr('type', 'text');
-        scheduleSpn.attr('class', 'plan');
+      scheduleSpn.attr('id', `input-${i}`);
+      scheduleSpn.attr('hr-idx', i);
+      scheduleSpn.attr('type', 'text');
+      scheduleSpn.attr('class', 'plan');
+      scheduleSpn.val(schedules[i]);
+      if ( hr < time24) {
+      scheduleSpn.attr("disabled", "true");
+      }
+      // create schedule column
+      let scheduleDiv = $('<div>');
+      scheduleDiv.addClass('col-md-9');
+    
+      // append schedule div and span to hrDiv
+      hrDiv.append(scheduleDiv);
+      scheduleDiv.append(scheduleSpn);
 
-        
-        scheduleSpn.val(schedules[i]);
-        if ( hr < time24) {
-          scheduleSpn.attr("disabled", "true");
-        }
-        // create schedule column
-        let scheduleDiv = $('<div>');
-        scheduleDiv.addClass('col-md-9');
-        
-        // append schedule div and span to hrDiv
-        hrDiv.append(scheduleDiv);
-        scheduleDiv.append(scheduleSpn);
+      // create save colum at the end of hrDiv
+      let savIconDiv = $('<div>');
+      savIconDiv.addClass('col-md-1');
+      let savIcon = $('<i>');
+      savIcon.attr('id', `savid-${i}`);
+      savIcon.attr('sav-id', i);
+      savIcon.attr('class', "far fa-save saveIcon");
+      hrDiv.append(savIconDiv);
+      savIconDiv.append(savIcon);
 
-        // create save colum at the end of
-        // hrDiv
-        let savIconDiv = $('<div>');
-        savIconDiv.addClass('col-md-1');
-        let savIcon = $('<i>');
-        savIcon.attr('id', `savid-${i}`);
-        savIcon.attr('sav-id', i);
+      //apply color
+      applyColorToHrDiv(hrDiv, hr);
 
-        savIcon.attr('class', "far fa-save saveIcon");
-
-        hrDiv.append(savIconDiv);
-        savIconDiv.append(savIcon);
-
-        //apply proper color
-        applyColorToHrDiv(hrDiv, hr);
-
-        //add hrDiv to schedulesDiv
-        schedulesDiv.append(hrDiv);
-        hr++;
+      //add hrDiv to schedulesDiv
+      schedulesDiv.append(hrDiv);
+      hr++;
     } while (hr <= 17);
 
-    //  row color update
+    //  update row color
     function applyColorToHrDiv(thisHr, hr) {
         if (hr < time.hour()) {
             thisHr.css("background-color", "lightgrey");
@@ -132,31 +123,21 @@ const saveIcon = "./images/save-regular.svg";
         }
     };
 
-    // save to localStorage on save
+    // save to localStorage on clicking save button
     $(document).on('click', 'i', function(event) {
         event.preventDefault();
         let savId = $(this).attr('sav-id');
         let scheduleId = '#input-' + savId;
         let schedule = $(scheduleId).val();
         schedules[savId] = schedule;
-
-        // remove shawdow pulse class
-        $(`#savid-${savId}`).removeClass('shadowPulse');
-        localStorage.setItem("schedules", JSON.stringify(schedules));
-
     });
 
     // save when the input changes
-
     $(document).on('change', 'input', function(event) {
         event.preventDefault();
 
         // neeed to check for save button
         let i = $(this).attr('hr-idx');
 
-        // add shawdow pulse class
-        $(`#savid-${i}`).addClass('shadowPulse');
-
     });
-
 });
