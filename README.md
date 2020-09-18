@@ -16,10 +16,8 @@ A calendar application that allows the user to save events for each hour of the 
 HTML, CSS, Javascript, jquery, Bootstrap
 
 ## Features
-Modified files 
-  * index.html, style.css
-Created js file
-  * workScheduler.js
+* Modified index.html, style.css
+* Created workScheduler.js
 
 Developed the site with the following features:
 
