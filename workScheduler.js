@@ -130,6 +130,7 @@ console.log('time24',time24);
         let scheduleId = '#input-' + savId;
         let schedule = $(scheduleId).val();
         schedules[savId] = schedule;
+        localStorage.setItem("schedules", JSON.stringify(schedules));
     });
 
     // save when the input changes
